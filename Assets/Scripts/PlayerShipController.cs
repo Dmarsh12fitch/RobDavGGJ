@@ -26,7 +26,7 @@ public class PlayerShipController : MonoBehaviour
         speed = 10;
         rotationSpeed = 6;
         fireCoolDown = 2;
-        rateOfFire = 5f;
+        rateOfFire = 10;
         PlayerShipDisplay = GameObject.Find("PlayerShipDisplayAnchor").GetComponent<Transform>();
     }
 
