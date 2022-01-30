@@ -10,16 +10,15 @@ public class AstroidScr : MonoBehaviour
 
     float speed;
 
-
     // Start is called before the first frame update
     void Start()
     {
         speed = 1;
 
         rotBy = new Vector3(0, 0, 0);
-        while(Mathf.Abs(rotBy.y) < 0.5f)
+        while(Mathf.Abs(rotBy.z) < 0.5f)
         {
-            rotBy = new Vector3(0, Random.Range(-2, 2), 0);
+            rotBy = new Vector3(0, 0, Random.Range(-2, 2));
         }
     }
 
@@ -28,12 +27,16 @@ public class AstroidScr : MonoBehaviour
     {
         RotateDisplay();
         MoveForward();
-    }
 
+
+    }
 
     void RotateDisplay()
     {
         astroidDisplay.Rotate(rotBy);
+        /*astroidDisplay.rotation = Quaternion.Euler(rotBy.x - astroidDisplay.rotation.eulerAngles.x,
+            rotBy.y - astroidDisplay.rotation.eulerAngles.y, rotBy.z - astroidDisplay.rotation.eulerAngles.z);*/
+        //astroidDisplay.rotation.eulerAngles = astroidDisplay.rotation.eulerAngles + rotBy;
     }
 
     void MoveForward()

@@ -9,6 +9,7 @@ TagManager:
   - Enemy Ship
   - Player Ship
   - Astroid
+  - Ghost Enemy Ship
   layers:
   - Default
   - TransparentFX
