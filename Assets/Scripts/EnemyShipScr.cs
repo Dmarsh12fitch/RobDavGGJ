@@ -24,7 +24,6 @@ public class EnemyShipScr : MonoBehaviour
 
     [SerializeField] private Transform EnemyShipTurret;
 
-
     // Start is called before the first frame update
     void Start()
     {

@@ -7,15 +7,11 @@ public class LaserProjectile : MonoBehaviour
     float speed;
     float damage;
 
-    bool hasHit;
-
-
     // Start is called before the first frame update
     void Start()
     {
         speed = 20;
         damage = 5;
-        hasHit = false;
         Destroy(gameObject, 2);
     }
 
@@ -32,9 +28,6 @@ public class LaserProjectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!hasHit)
-        {
-            hasHit = true;
             Debug.Log("Collide");
             if (gameObject.CompareTag("Player Laser"))
             {
@@ -70,13 +63,13 @@ public class LaserProjectile : MonoBehaviour
                 else if (collision.gameObject.CompareTag("Astroid"))
                 {
                     Explode();
-                } else if(collision.gameObject.CompareTag("Ghost Enemy Ship"))
+                }
+                else if(collision.gameObject.CompareTag("Ghost Enemy Ship"))
                 {
                     collision.gameObject.GetComponent<GhostEnemyShipScr>().EnemyHit(damage);
                     Explode();
                 }
             }
-        }
     }
 
     void Explode()

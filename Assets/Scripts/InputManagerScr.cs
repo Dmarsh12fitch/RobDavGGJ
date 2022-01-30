@@ -113,6 +113,7 @@ public class InputManagerScr : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             GhostVisionTry = true;
+            Debug.Log("spacePressed");
         }
         else
         {

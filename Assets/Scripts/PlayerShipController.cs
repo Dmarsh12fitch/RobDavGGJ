@@ -20,17 +20,20 @@ public class PlayerShipController : MonoBehaviour
 
     [SerializeField] private Transform PlayerShipDisplay;
     [SerializeField] private Transform PlayerShipTurret;
+    [SerializeField] private GameObject GhostVisionOverlay;
 
     [SerializeField] private GameObject LaserProjPrefab;
 
     // Start is called before the first frame update
     void Start()
     {
-        bounds = 8.2f;
-        speed = 10;
+        bounds = 8.4f;
+        speed = 6;
         rotationSpeed = 6;
         fireCoolDown = 2;
         rateOfFire = 10;
+        GhostVisionTimer = 5;
+        GhostVisionCoolDown = 0;
         PlayerShipDisplay = GameObject.Find("PlayerShipDisplayAnchor").GetComponent<Transform>();
     }
 
@@ -42,6 +45,22 @@ public class PlayerShipController : MonoBehaviour
             checkPlayerMovement();
             checkPlayerRotation();
             CheckGhostVision();
+
+            if (GhostVisionEnabled)
+            {
+                GhostVisionCoolDown = 5;
+                GhostVisionTimer -= Time.deltaTime;
+                if(GhostVisionTimer <= 0)
+                {
+                    GhostVisionEnabledORDisabled(false);
+                }
+            }
+            else
+            {
+                GhostVisionTimer = 5;
+                GhostVisionCoolDown -= Time.deltaTime;
+            }
+
             if (fireCoolDown <= 0)
             {
                 Fire();
@@ -53,7 +72,16 @@ public class PlayerShipController : MonoBehaviour
 
     void Fire()
     {
-        Instantiate(LaserProjPrefab, PlayerShipTurret.position, PlayerShipTurret.rotation);
+        if (GhostVisionEnabled)
+        {
+            var JustSpawnedThing = Instantiate(LaserProjPrefab, PlayerShipTurret.position, PlayerShipTurret.rotation);
+            JustSpawnedThing.gameObject.tag = "Player Ghost Laser";
+        }
+        else
+        {
+            Instantiate(LaserProjPrefab, PlayerShipTurret.position, PlayerShipTurret.rotation);
+        }
+        
     }
 
     void checkPlayerMovement()
@@ -116,12 +144,30 @@ public class PlayerShipController : MonoBehaviour
 
     void CheckGhostVision()
     {
-        if (InputManagerScr.Instance.GhostVisionTry && GhostVisionCoolDown >= 0 && GhostVisionEnabled && GhostVisionTimer <= 0)
+        if (InputManagerScr.Instance.GhostVisionTry && GhostVisionCoolDown <= 0 && !GhostVisionEnabled && GhostVisionTimer == 5)
         {
-
+            GhostVisionEnabledORDisabled(true);
         }
     }
 
+    void GhostVisionEnabledORDisabled(bool EnabledORDisabled)
+    {
+        GhostVisionEnabled = EnabledORDisabled;
+
+        GhostVisionOverlay.GetComponent<SpriteRenderer>().enabled = EnabledORDisabled;
+
+        GameObject[] EnemyGhostShips = GameObject.FindGameObjectsWithTag("Ghost Enemy Ship");
+
+        foreach(GameObject GhostEnemyShip in EnemyGhostShips)
+        {
+            GhostEnemyShip.GetComponentInChildren<SpriteRenderer>().enabled = EnabledORDisabled;
+        }
+    }
+
+
+
     //background has children astroids, and is always moving in the direction oposite the player is facing
+
+
 
 }
