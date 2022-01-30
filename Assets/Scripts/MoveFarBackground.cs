@@ -24,7 +24,7 @@ public class MoveFarBackground : MonoBehaviour
         {
             hasDuplicated = true;
             var i = Instantiate(FarBackgroundPrefab, BackgroundManager);
-            i.transform.position = new Vector3((float)transform.position.x, (float)transform.position.y, (float)transform.position.z + 10);
+            i.transform.position = new Vector3((float)transform.position.x, (float)transform.position.y, (float)transform.position.z + 12.5f);
         } else if(transform.position.z < -15 && hasDuplicated)
         {
             Destroy(gameObject);

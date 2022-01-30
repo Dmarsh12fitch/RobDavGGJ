@@ -91,7 +91,6 @@ public class GhostEnemyShipScr : MonoBehaviour
     public void EnemyHit(float damage)
     {
         enemyHealth -= damage;
-        Debug.Log("enemy health = " + enemyHealth);
         if (enemyHealth <= 0)
         {
             EnemyDie();

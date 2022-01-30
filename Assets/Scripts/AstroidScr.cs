@@ -14,12 +14,7 @@ public class AstroidScr : MonoBehaviour
     void Start()
     {
         speed = 1;
-
-        rotBy = new Vector3(0, 0, 0);
-        while(Mathf.Abs(rotBy.z) < 0.5f)
-        {
-            rotBy = new Vector3(0, 0, Random.Range(-2, 2));
-        }
+        rotBy = new Vector3(0, 0, Random.Range(-1f, 1f));
     }
 
     // Update is called once per frame
@@ -27,8 +22,10 @@ public class AstroidScr : MonoBehaviour
     {
         RotateDisplay();
         MoveForward();
-
-
+        if(Mathf.Abs(transform.position.x) > 11 || Mathf.Abs(transform.position.z) > 11)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void RotateDisplay()

@@ -26,8 +26,9 @@ public class ManagerScr : MonoBehaviour
     private PlayerShipController playerShipScript;
 
     [SerializeField] private GameObject enemyShipPrefab;
+    [SerializeField] private GameObject astroidPrefab;
 
-    [SerializeField] private Vector3[] EnemyShipSpawnLocos;
+    [SerializeField] private Vector3[] spawnLocos;
 
     float spawnRate;
     float spawnRateVariability;
@@ -37,7 +38,7 @@ public class ManagerScr : MonoBehaviour
     void Start()
     {
         spawnRate = 4;
-        spawnRateVariability = 1;
+        spawnRateVariability = 2;
         spawnCoolDown = 4;
         playerHealth = 100;
         playerShipScript = GameObject.Find("PlayerShip").GetComponent<PlayerShipController>();
@@ -49,8 +50,12 @@ public class ManagerScr : MonoBehaviour
         if (spawnCoolDown <= 0)
         {
             SpawnEnemyShip();
+            SpawnAstroid();
+            SpawnAstroid();
+            StartCoroutine(AsteroidSecond());
             spawnCoolDown = Random.Range(spawnRate - spawnRateVariability, spawnRate + spawnRateVariability);
         }
+
 
         spawnCoolDown -= Time.deltaTime;
     }
@@ -74,7 +79,29 @@ public class ManagerScr : MonoBehaviour
     void SpawnEnemyShip()
     {
         var justSpawnedEnemyShip = Instantiate(enemyShipPrefab);
-        justSpawnedEnemyShip.transform.position = EnemyShipSpawnLocos[Random.Range(0, EnemyShipSpawnLocos.Length)];
+        justSpawnedEnemyShip.transform.position = spawnLocos[Random.Range(0, spawnLocos.Length)];
+    }
+
+    void SpawnAstroid()
+    {
+        GameObject[] things = GameObject.FindGameObjectsWithTag("Front Background");
+        var justSpawnedAstroid = Instantiate(astroidPrefab);
+        justSpawnedAstroid.transform.position = spawnLocos[Random.Range(0, spawnLocos.Length)];
+        justSpawnedAstroid.transform.rotation = Quaternion.Euler(0, Random.Range(-180, 180), 0);
+        justSpawnedAstroid.transform.SetParent(things[things.Length - 1].transform, true);
+    }
+
+    IEnumerator AsteroidSecond()
+    {
+        yield return new WaitForSeconds(Random.Range(spawnRateVariability, spawnRateVariability + 1f));
+        float rand = Random.Range(0, 2);
+        if(rand == 1)
+        {
+            var justSpawnedAstroid = Instantiate(astroidPrefab);
+            justSpawnedAstroid.transform.position = spawnLocos[Random.Range(0, spawnLocos.Length)];
+            justSpawnedAstroid.transform.rotation = Quaternion.Euler(0, Random.Range(-180, 180), 0);
+            justSpawnedAstroid.transform.localScale = new Vector3(2, 2, 2);
+        }
     }
 
 }

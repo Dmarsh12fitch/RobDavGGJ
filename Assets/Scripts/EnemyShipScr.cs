@@ -102,7 +102,6 @@ Vector3 directionToPoint = new Vector3(playerShipTransform.position.x - transfor
     public void EnemyHit(float damage)
     {
         enemyHealth -= damage;
-        Debug.Log("enemy health = " + enemyHealth);
         if (enemyHealth <= 0)
         {
             EnemyDie();

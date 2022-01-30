@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerShipController : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private Transform PlayerShipDisplay;
     [SerializeField] private Transform PlayerShipTurret;
     [SerializeField] private GameObject GhostVisionOverlay;
+    [SerializeField] private Image img;
+    [SerializeField] private Image img2;
 
     [SerializeField] private GameObject LaserProjPrefab;
 
@@ -50,13 +53,17 @@ public class PlayerShipController : MonoBehaviour
             {
                 GhostVisionCoolDown = 5;
                 GhostVisionTimer -= Time.deltaTime;
-                if(GhostVisionTimer <= 0)
+                img.fillAmount = 0;
+                img2.fillAmount = (5 - GhostVisionTimer) / 5;
+                if (GhostVisionTimer <= 0)
                 {
+                    
                     GhostVisionEnabledORDisabled(false);
                 }
             }
             else
             {
+                img.fillAmount = (5 - GhostVisionCoolDown) / 5;
                 GhostVisionTimer = 5;
                 GhostVisionCoolDown -= Time.deltaTime;
             }
@@ -147,6 +154,7 @@ public class PlayerShipController : MonoBehaviour
         if (InputManagerScr.Instance.GhostVisionTry && GhostVisionCoolDown <= 0 && !GhostVisionEnabled && GhostVisionTimer == 5)
         {
             GhostVisionEnabledORDisabled(true);
+            img2.fillAmount = 0;
         }
     }
 

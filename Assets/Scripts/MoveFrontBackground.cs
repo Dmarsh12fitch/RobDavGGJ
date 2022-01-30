@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveMiddleBackground : MonoBehaviour
+public class MoveFrontBackground : MonoBehaviour
 {
-
-    //go in the opposite direction of the rotation of the player
 
     float speed;
     bool hasDuplicated;
 
-    private Transform StarTracker;
+    private Transform StarTracker2;
 
-    [SerializeField] private GameObject MiddleBackgroundPrefab;
+    [SerializeField] private GameObject FrontBackgroundPrefab;
 
     private Transform BackgroundManager;
 
@@ -20,8 +18,8 @@ public class MoveMiddleBackground : MonoBehaviour
     void Start()
     {
         BackgroundManager = GameObject.Find("BackgroundManager").GetComponent<Transform>();
-        speed = 2f;
-        StarTracker = GameObject.Find("StarTrackingOffset").GetComponent<Transform>();
+        speed = 7.5f;
+        StarTracker2 = GameObject.Find("StarTrackingOffset2").GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -31,8 +29,8 @@ public class MoveMiddleBackground : MonoBehaviour
         if (transform.position.z < -0.5f && !hasDuplicated)
         {
             hasDuplicated = true;
-            var i = Instantiate(MiddleBackgroundPrefab, BackgroundManager);
-            i.transform.position = new Vector3((float)transform.position.x, (float)transform.position.y, (float)transform.position.z + 10);
+            var i = Instantiate(FrontBackgroundPrefab, BackgroundManager);
+            i.transform.position = new Vector3((float)transform.position.x + Random.Range(-10, 10), (float)transform.position.y, (float)transform.position.z + 20);
         }
         else if (transform.position.z < -15 && hasDuplicated)
         {
@@ -42,6 +40,6 @@ public class MoveMiddleBackground : MonoBehaviour
 
     void MoveIt()
     {
-        transform.position = Vector3.MoveTowards(transform.position, StarTracker.position, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, StarTracker2.position, speed * Time.deltaTime);
     }
 }
