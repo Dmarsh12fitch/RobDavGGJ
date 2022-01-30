@@ -80,16 +80,18 @@ public class PlayerShipController : MonoBehaviour
 
     void Fire()
     {
-        if (GhostVisionEnabled)
+        if (InputManagerScr.Instance.RotInputHappening)
         {
-            var JustSpawnedThing = Instantiate(LaserProjPrefab, PlayerShipTurret.position, PlayerShipTurret.rotation);
-            JustSpawnedThing.gameObject.tag = "Player Ghost Laser";
+            if (GhostVisionEnabled)
+            {
+                var JustSpawnedThing = Instantiate(LaserProjPrefab, PlayerShipTurret.position, PlayerShipTurret.rotation);
+                JustSpawnedThing.gameObject.tag = "Player Ghost Laser";
+            }
+            else
+            {
+                Instantiate(LaserProjPrefab, PlayerShipTurret.position, PlayerShipTurret.rotation);
+            }
         }
-        else
-        {
-            Instantiate(LaserProjPrefab, PlayerShipTurret.position, PlayerShipTurret.rotation);
-        }
-        
     }
 
     void checkPlayerMovement()

@@ -43,6 +43,7 @@ public class InputManagerScr : MonoBehaviour
     public RotDir RotDirTry;
 
     public bool GhostVisionTry;
+    public bool RotInputHappening;
 
     // Start is called before the first frame update
     void Start()
@@ -120,6 +121,18 @@ public class InputManagerScr : MonoBehaviour
             GhostVisionTry = false;
         }
         
+
+        //any player rotation input
+        if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.DownArrow))
+        {
+            RotInputHappening = true;
+        }
+        else
+        {
+            RotInputHappening = false;
+        }
+
+
     }
 
 
