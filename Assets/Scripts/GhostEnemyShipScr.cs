@@ -26,8 +26,8 @@ public class GhostEnemyShipScr : MonoBehaviour
         enemyHealth = 10;
         speed = 1.5f;
         rotationSpeed = 1;
-        fireCoolDown = 5;
-        rateOfFire = 5;
+        fireCoolDown = 3;
+        rateOfFire = 3;
         newDestinationCoolDown = 4;
         PickNewDestination();
     }
