@@ -11,6 +11,9 @@ TagManager:
   - Astroid
   - Ghost Enemy Ship
   - Player Ghost Laser
+  - Far Background
+  - Middle Background
+  - Front Background
   layers:
   - Default
   - TransparentFX

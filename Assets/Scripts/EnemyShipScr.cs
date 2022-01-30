@@ -27,7 +27,7 @@ public class EnemyShipScr : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemyHealth = 10f;
+        enemyHealth = 25f;
         speed = 1f;
         rotationHueristic = 45f;
         rotationSpeed = 10f;

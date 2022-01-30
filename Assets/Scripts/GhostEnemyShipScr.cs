@@ -23,7 +23,7 @@ public class GhostEnemyShipScr : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemyHealth = 5;
+        enemyHealth = 10;
         speed = 1.5f;
         rotationSpeed = 1;
         fireCoolDown = 5;
