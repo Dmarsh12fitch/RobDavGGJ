@@ -20,6 +20,7 @@ public class EnemyShipScr : MonoBehaviour
     private Transform playerShipTransform;
 
     [SerializeField] private GameObject LaserProjPrefab;
+    [SerializeField] private GameObject GhostEnemyShipPrefab;
 
     [SerializeField] private Transform EnemyShipTurret;
 
@@ -27,14 +28,14 @@ public class EnemyShipScr : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemyHealth = 10;
+        enemyHealth = 10f;
         speed = 1f;
-        rotationHueristic = 45;
-        rotationSpeed = 10;
+        rotationHueristic = 45f;
+        rotationSpeed = 10f;
         fireCoolDown = Random.Range(1, 3);
-        rateOfFire = 1;
+        rateOfFire = 1f;
         rotateCoolDown = 2f;
-        rotateEvery = 100;
+        rotateEvery = 100f;
 
         playerShipTransform = GameObject.Find("PlayerShip").GetComponent<Transform>();
     }
@@ -112,7 +113,7 @@ Vector3 directionToPoint = new Vector3(playerShipTransform.position.x - transfor
     void EnemyDie()
     {
         //instantiate bigexplosion effect
-        //instantiate ghost version
+        Instantiate(GhostEnemyShipPrefab, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 }

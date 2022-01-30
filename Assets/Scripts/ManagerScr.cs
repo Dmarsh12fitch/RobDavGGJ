@@ -58,7 +58,6 @@ public class ManagerScr : MonoBehaviour
     public void PlayerHit(float damage)
     {
         playerHealth -= damage;
-        Debug.Log("Player Health = " + playerHealth);
         if(playerHealth <= 0)
         {
             GameOver();

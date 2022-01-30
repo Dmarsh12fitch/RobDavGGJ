@@ -42,11 +42,14 @@ public class InputManagerScr : MonoBehaviour
     }
     public RotDir RotDirTry;
 
+    public bool GhostVisionTry;
+
     // Start is called before the first frame update
     void Start()
     {
         MoveDirTry = MoveDir.Stationary;
         RotDirTry = RotDir.Forward;
+        GhostVisionTry = false;
     }
 
     // Update is called once per frame
@@ -106,8 +109,15 @@ public class InputManagerScr : MonoBehaviour
             RotDirTry = RotDir.Forward;
         }
 
-
-
+        //player ghostVision
+        if (Input.GetKey(KeyCode.Space))
+        {
+            GhostVisionTry = true;
+        }
+        else
+        {
+            GhostVisionTry = false;
+        }
         
     }
 

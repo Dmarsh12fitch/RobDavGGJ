@@ -12,6 +12,10 @@ public class PlayerShipController : MonoBehaviour
     float rateOfFire;
     float fireCoolDown;
 
+    bool GhostVisionEnabled;
+    float GhostVisionTimer;
+    float GhostVisionCoolDown;
+
     Vector3 rotTo;
 
     [SerializeField] private Transform PlayerShipDisplay;
@@ -22,7 +26,7 @@ public class PlayerShipController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bounds = 8;
+        bounds = 8.2f;
         speed = 10;
         rotationSpeed = 6;
         fireCoolDown = 2;
@@ -37,6 +41,7 @@ public class PlayerShipController : MonoBehaviour
         {
             checkPlayerMovement();
             checkPlayerRotation();
+            CheckGhostVision();
             if (fireCoolDown <= 0)
             {
                 Fire();
@@ -48,7 +53,7 @@ public class PlayerShipController : MonoBehaviour
 
     void Fire()
     {
-        /*var justFiredLaser = */Instantiate(LaserProjPrefab, PlayerShipTurret.position, PlayerShipTurret.rotation);
+        Instantiate(LaserProjPrefab, PlayerShipTurret.position, PlayerShipTurret.rotation);
     }
 
     void checkPlayerMovement()
@@ -109,6 +114,13 @@ public class PlayerShipController : MonoBehaviour
         }
     }
 
+    void CheckGhostVision()
+    {
+        if (InputManagerScr.Instance.GhostVisionTry && GhostVisionCoolDown >= 0 && GhostVisionEnabled && GhostVisionTimer <= 0)
+        {
+
+        }
+    }
 
     //background has children astroids, and is always moving in the direction oposite the player is facing
 
