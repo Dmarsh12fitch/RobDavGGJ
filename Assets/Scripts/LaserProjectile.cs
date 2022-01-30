@@ -7,6 +7,8 @@ public class LaserProjectile : MonoBehaviour
     float speed;
     float damage;
 
+    [SerializeField] private GameObject ExplosionPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +30,6 @@ public class LaserProjectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-            Debug.Log("Collide");
             if (gameObject.CompareTag("Player Laser"))
             {
                 if (collision.gameObject.CompareTag("Enemy Ship"))
@@ -74,7 +75,7 @@ public class LaserProjectile : MonoBehaviour
 
     void Explode()
     {
-        //instantiate an explosion effect
+        Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 

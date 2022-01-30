@@ -99,7 +99,7 @@ public class GhostEnemyShipScr : MonoBehaviour
 
     void EnemyDie()
     {
-        //instantiate bigexplosion effect
+        ManagerScr.Instance.killedAnEnemy();
         Destroy(gameObject);
     }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ManagerScr : MonoBehaviour
 {
@@ -27,6 +28,11 @@ public class ManagerScr : MonoBehaviour
 
     [SerializeField] private GameObject enemyShipPrefab;
     [SerializeField] private GameObject astroidPrefab;
+    [SerializeField] private GameObject explosion;
+
+    [SerializeField] private Image HealthBar;
+    [SerializeField] private Text enemiesKilled;
+    private int enemiesKilledNumber;
 
     [SerializeField] private Vector3[] spawnLocos;
 
@@ -37,6 +43,7 @@ public class ManagerScr : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        enemiesKilledNumber = 0;
         spawnRate = 4;
         spawnRateVariability = 2;
         spawnCoolDown = 4;
@@ -56,13 +63,19 @@ public class ManagerScr : MonoBehaviour
             spawnCoolDown = Random.Range(spawnRate - spawnRateVariability, spawnRate + spawnRateVariability);
         }
 
-
         spawnCoolDown -= Time.deltaTime;
+    }
+
+    public void killedAnEnemy()
+    {
+        enemiesKilledNumber++;
+        enemiesKilled.text = enemiesKilledNumber.ToString();
     }
 
     public void PlayerHit(float damage)
     {
         playerHealth -= damage;
+        HealthBar.fillAmount = playerHealth / 100;
         if(playerHealth <= 0)
         {
             GameOver();
@@ -72,8 +85,15 @@ public class ManagerScr : MonoBehaviour
     public void GameOver()
     {
         playerShipScript.dead = true;
-        //instansiate big explosion effect
-        //set to not active the display of the player
+        Instantiate(explosion, GameObject.Find("PlayerShip").transform.position, Quaternion.identity);
+        GameObject.FindGameObjectWithTag("Player Ship").GetComponentInChildren<SpriteRenderer>().enabled = false;
+        StartCoroutine(restart());
+    }
+
+    IEnumerator restart()
+    {
+        yield return new WaitForSeconds(4);
+        SceneManager.LoadScene("Main Menu");
     }
 
     void SpawnEnemyShip()

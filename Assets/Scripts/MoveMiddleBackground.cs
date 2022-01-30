@@ -20,7 +20,7 @@ public class MoveMiddleBackground : MonoBehaviour
     void Start()
     {
         BackgroundManager = GameObject.Find("BackgroundManager").GetComponent<Transform>();
-        speed = 2f;
+        speed = 0.75f;
         StarTracker = GameObject.Find("StarTrackingOffset").GetComponent<Transform>();
     }
 

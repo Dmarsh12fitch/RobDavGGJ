@@ -31,7 +31,7 @@ public class PlayerShipController : MonoBehaviour
     void Start()
     {
         bounds = 8.4f;
-        speed = 6;
+        speed = 4;
         rotationSpeed = 6;
         fireCoolDown = 2;
         rateOfFire = 10;
@@ -48,6 +48,7 @@ public class PlayerShipController : MonoBehaviour
             checkPlayerMovement();
             checkPlayerRotation();
             CheckGhostVision();
+            CheckForCloseThings();
 
             if (GhostVisionEnabled)
             {
@@ -172,7 +173,31 @@ public class PlayerShipController : MonoBehaviour
         }
     }
 
+    void CheckForCloseThings()
+    {
+        GameObject[] EnemyGhostShips = GameObject.FindGameObjectsWithTag("Ghost Enemy Ship");
 
+        foreach (GameObject GhostEnemyShip in EnemyGhostShips)
+        {
+            if(Mathf.Abs(GhostEnemyShip.transform.position.x - transform.position.x) < 0.5f
+                && Mathf.Abs(GhostEnemyShip.transform.position.z - transform.position.z) < 0.5f)
+            {
+                ManagerScr.Instance.PlayerHit(1000);
+            }
+        }
+
+        GameObject[] Astroids = GameObject.FindGameObjectsWithTag("Astroid");
+
+        foreach(GameObject Astroid in Astroids)
+        {
+            if(Mathf.Abs(Astroid.transform.position.x - transform.position.x) < 0.5f
+                && Mathf.Abs(Astroid.transform.position.z - transform.position.z) < 0.5f)
+            {
+                ManagerScr.Instance.PlayerHit(1000);
+            }
+        }
+
+    }
 
     //background has children astroids, and is always moving in the direction oposite the player is facing
 

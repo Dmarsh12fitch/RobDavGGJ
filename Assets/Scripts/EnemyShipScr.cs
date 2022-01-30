@@ -21,6 +21,7 @@ public class EnemyShipScr : MonoBehaviour
 
     [SerializeField] private GameObject LaserProjPrefab;
     [SerializeField] private GameObject GhostEnemyShipPrefab;
+    [SerializeField] private GameObject explosion;
 
     [SerializeField] private Transform EnemyShipTurret;
 
@@ -110,7 +111,7 @@ Vector3 directionToPoint = new Vector3(playerShipTransform.position.x - transfor
 
     void EnemyDie()
     {
-        //instantiate bigexplosion effect
+        Instantiate(explosion, transform.position, Quaternion.identity);
         Instantiate(GhostEnemyShipPrefab, transform.position, transform.rotation);
         Destroy(gameObject);
     }

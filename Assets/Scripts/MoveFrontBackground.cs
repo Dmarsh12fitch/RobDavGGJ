@@ -18,7 +18,7 @@ public class MoveFrontBackground : MonoBehaviour
     void Start()
     {
         BackgroundManager = GameObject.Find("BackgroundManager").GetComponent<Transform>();
-        speed = 7.5f;
+        speed = 3f;
         StarTracker2 = GameObject.Find("StarTrackingOffset2").GetComponent<Transform>();
     }
 
